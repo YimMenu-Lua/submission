@@ -1,0 +1,19 @@
+name: Request YimMenu Lua repository
+description: Submit a request for a YimMenu Lua repository.
+title: "[Submission]: "
+labels: submission
+body:
+- type: textarea
+  attributes:
+    label: Repository Name
+    description: The repository name is how the URL at which your Lua scripts can be found will be shaped. For example YimMenu-Lua/Casino
+    placeholder: Heist-Editor
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Description
+    description: Describe what features your Lua script will offer.
+    placeholder: Heist editor is a simple, easy to use Lua script that allows you to modify the winnings for each player in a heist and much more!
+  validations:
+    required: true

@@ -1,0 +1,11 @@
+name: 'YimMenu Lua Submission Handler'
+description: 'Handles new issues on the submission repo and creates the appropriate repo.'
+inputs:
+  github-token:
+    description: 'Token override, this will be used to comment on issues.'
+    required: false
+    default: ${{ secrets.GITHUB_TOKEN }}
+outputs:
+runs:
+  using: 'node16'
+  main: 'index.js'
