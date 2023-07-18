@@ -30,7 +30,7 @@ export const getIssueLabels = issue => {
  * @param {string} body The issue body
  * @returns {string|undefined} The body of the 'Repository Name' subsection.
  */
-export const getRepoDescription = body => {
+export const getRepoName = body => {
     return getBodyFromSubsection(body, 'Repository Name');
 };
 
@@ -38,7 +38,7 @@ export const getRepoDescription = body => {
  * @param {string} body The issue body
  * @returns {string|undefined} The body of the 'Repository Name' subsection.
  */
-export const getRepoName = body => {
+export const getRepoDescription = body => {
     return getBodyFromSubsection(body, 'Description');
 };
 
