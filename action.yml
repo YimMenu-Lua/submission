@@ -4,7 +4,7 @@ inputs:
   github-token:
     description: 'Token override, this will be used to comment on issues.'
     required: false
-    default: ${{ secrets.GITHUB_TOKEN }}
+    default: ${{ github.token }}
 runs:
   using: 'node16'
   main: 'index.js'
