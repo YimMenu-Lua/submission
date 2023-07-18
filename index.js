@@ -60,7 +60,7 @@ const main = async _ => {
         name: repoName,
         description: repoDescription
     };
-    await addFileToRepo(token, repoName, 'metadata.json', 'Create metadata.json', JSON.stringify(metadata));
+    await addFileToRepo(token, repoName, 'metadata.json', 'Create metadata.json', JSON.stringify(metadata, null, 4));
     await closeIssueWithComment(token, `Success, your repository has been created!\n\nYou can accept the invite by checking your email or clicking [here](https://github.com/${context.repo.owner}/${repoName}/invitations).`);
 };
 
