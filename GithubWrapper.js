@@ -83,15 +83,20 @@ export const createRepoAndInviteTo = async (token, owner, name, description) => 
         has_projects: false,
         auto_init: true,
     });
-    if (status != 201)
-        return false;
     
-    return (await octokit.rest.repos.addCollaborator({
-        owner: context.repo.owner,
-        repo: name,
-        username: owner,
-        permission: 'push'
-    })).status == 201;
+    if (status == 201)
+    {
+        const { status } = await octokit.rest.repos.addCollaborator({
+            owner: context.repo.owner,
+            repo: name,
+            username: owner,
+            permission: 'push'
+        });
+
+        return status == 201 || status == 204;
+    }
+    
+    return false;
 };
 
 /**
