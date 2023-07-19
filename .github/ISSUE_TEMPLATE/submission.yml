@@ -17,3 +17,10 @@ body:
     placeholder: Heist editor is a simple, easy to use Lua script that allows you to modify the winnings for each player in a heist and much more!
   validations:
     required: true
+- type: checkbox
+  attributes:
+    label: ToS Agreement
+    description: By checking this you agree that the repository given to you will follow the [Github Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service).
+    placeholder: I agree to the Github ToS
+  validations:
+    required: true
