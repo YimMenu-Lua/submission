@@ -1,7 +1,7 @@
 import core from "@actions/core";
 import { context } from "@actions/github";
-import { addFileToRepo, addLabelToIssue, closeIssueWithComment, createRepoAndInviteTo, getIssue, makeIssueComment } from "./GithubWrapper.js";
-import { getIssueLabels, getRepoDescription, getRepoName } from "./Util.js";
+import { addFileToRepo, addLabelToIssue, closeIssueWithComment, createRepoAndInviteTo, getIssue } from "./src/GithubWrapper.js";
+import { getIssueLabels, getRepoDescription, getRepoName } from "./src/Util.js";
 
 /**
  * 
