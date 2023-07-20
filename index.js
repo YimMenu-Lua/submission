@@ -27,6 +27,7 @@ const main = async _ => {
 
         return;
     }
+    core.debug("Got a valid issue.");
 
     const labels = getIssueLabels(issue);
     if (!labels.includes("submission"))
@@ -35,10 +36,12 @@ const main = async _ => {
 
         return;
     }
+    core.debug("Submission label is present.");
 
     const body = issue.body;
     const repoName = getRepoName(body).replace(' ', '-');
     const repoDescription = getRepoDescription(body);
+    core.debug(`Parsed the following { repoName: "${repoName}", repoDescription: "${repoDescription}" }`);
 
     if (repoName.includes('\n') || repoName.includes('\r'))
     {
@@ -46,6 +49,7 @@ const main = async _ => {
 
         return;
     }
+    core.debug("Repo name doesn't contain any newlines.");
 
     if (isBlackListedRepo(repoName))
     {
@@ -53,6 +57,7 @@ const main = async _ => {
 
         return;
     }
+    core.debug("Repo name does not contain any blacklisted names.");
 
     const result = await createRepoAndInviteTo(token, issue.user.login, repoName, repoDescription);
     if (!result)
@@ -61,6 +66,7 @@ const main = async _ => {
 
         return;
     }
+    core.debug("Created repo and invited user as collaborator.");
 
     const metadata = {
         creator: issue.user.login,

@@ -1,3 +1,4 @@
+import core from "@actions/core";
 import { context } from "@actions/github";
 import Filter from "bad-words";
 
@@ -52,6 +53,9 @@ const filter = new Filter();
  */
 export const isBlackListedRepo = repoName => {
     const nameBlackList = [ '.github', '.github-private', context.repo.owner, `${context.repo.owner}.github.io` ];
+    for (const blackListed of nameBlackList) {
+        core.debug(`Blacklisted: ${blackListed}`);
+    }
 
     return nameBlackList.includes(repoName) || filter.isProfane(repoName);
 };
