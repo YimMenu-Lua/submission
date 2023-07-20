@@ -1,3 +1,6 @@
+import { context } from "@actions/github";
+import Filter from "bad-words";
+
 /**
  * 
  * @param {string} body Body to extra the subsection from
@@ -42,8 +45,20 @@ export const getRepoDescription = body => {
     return getBodyFromSubsection(body, 'Description');
 };
 
+const filter = new Filter();
+/**
+ * @param {string} repoName 
+ * @returns {boolean}
+ */
+export const isBlackListedRepo = repoName => {
+    const nameBlackList = [ '.github', '.github-private', context.repo.owner, `${context.repo.owner}.github.io` ];
+
+    return nameBlackList.includes(repoName) || filter.isProfane(repoName);
+};
+
 export default {
     getIssueLabels,
     getRepoDescription,
-    getRepoName
+    getRepoName,
+    isBlackListedRepo
 };
