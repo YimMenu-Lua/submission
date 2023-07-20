@@ -9,8 +9,21 @@ import { getIssueLabels, getRepoDescription, getRepoName, isBlackListedRepo } fr
  * @param {string} reason 
  * @param {string} label 
  */
-const markFailure = async (token, reason, label = 'internal-failure') => {
-    await closeIssueWithComment(token, `Failure handling issue`);
+const markInternalFailure = async (token, reason, label = 'internal-failure') => {
+    await closeIssueWithComment(token, `Failure handling issue: ${reason}`);
+    await addLabelToIssue(token, label);
+
+    core.error(reason);
+    core.setFailed(`Submission Issue Handling Failure: "${reason}"`);
+};
+/**
+ * 
+ * @param {string} token 
+ * @param {string} reason 
+ * @param {string} label 
+ */
+const markFailure = async (token, reason, label = 'invalid') => {
+    await closeIssueWithComment(token, reason);
     await addLabelToIssue(token, label);
 
     core.error(reason);
@@ -23,7 +36,7 @@ const main = async _ => {
     const issue = await getIssue(token);
     if (!issue)
     {
-        await markFailure(token, "No issue in current context?");
+        await markInternalFailure(token, "No issue in current context?");
 
         return;
     }
@@ -32,7 +45,7 @@ const main = async _ => {
     const labels = getIssueLabels(issue);
     if (!labels.includes("submission"))
     {
-        await markFailure(token, "Somehow someone managed to create an issue without label?");
+        await markInternalFailure(token, "Somehow someone managed to create an issue without label?");
 
         return;
     }
@@ -45,7 +58,7 @@ const main = async _ => {
 
     if (repoName.includes('\n') || repoName.includes('\r'))
     {
-        await markFailure(token, "Repository name includes newlines, aborting...", 'invalid');
+        await markFailure(token, "Repository name includes newlines, make sure you fill only a single line for the repository name.");
 
         return;
     }
@@ -53,7 +66,7 @@ const main = async _ => {
 
     if (isBlackListedRepo(repoName))
     {
-        await markFailure(token, "Repository name is on the blacklist.");
+        await markFailure(token, "Repository name is on the blacklist or containst blacklisted words, please use a different name.");
 
         return;
     }
@@ -62,7 +75,7 @@ const main = async _ => {
     const result = await createRepoAndInviteTo(token, issue.user.login, repoName, repoDescription);
     if (!result)
     {
-        await markFailure("Failed to create repo and invite collaborator.");
+        await markInternalFailure("Failed to create repo and invite collaborator.");
 
         return;
     }
