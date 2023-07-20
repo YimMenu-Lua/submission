@@ -20,6 +20,7 @@
   "homepage": "https://github.com/YimMenu-Lua/submission#readme",
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@actions/github": "^5.1.1"
+    "@actions/github": "^5.1.1",
+    "bad-words": "^3.0.4"
   }
 }

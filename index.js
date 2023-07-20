@@ -1,7 +1,7 @@
 import core from "@actions/core";
 import { context } from "@actions/github";
 import { addFileToRepo, addLabelToIssue, closeIssueWithComment, createRepoAndInviteTo, getIssue } from "./src/GithubWrapper.js";
-import { getIssueLabels, getRepoDescription, getRepoName } from "./src/Util.js";
+import { getIssueLabels, getRepoDescription, getRepoName, isBlackListedRepo } from "./src/Util.js";
 
 /**
  * 
@@ -10,10 +10,10 @@ import { getIssueLabels, getRepoDescription, getRepoName } from "./src/Util.js";
  * @param {string} label 
  */
 const markFailure = async (token, reason, label = 'internal-failure') => {
-    core.error(reason);
     await closeIssueWithComment(token, `Failure handling issue`);
     await addLabelToIssue(token, label);
 
+    core.error(reason);
     core.setFailed(`Submission Issue Handling Failure: "${reason}"`);
 };
 
@@ -43,6 +43,13 @@ const main = async _ => {
     if (repoName.includes('\n') || repoName.includes('\r'))
     {
         await markFailure(token, "Repository name includes newlines, aborting...", 'invalid');
+
+        return;
+    }
+
+    if (isBlackListedRepo())
+    {
+        await markFailure(token, "Repository name is on the blacklist.");
 
         return;
     }
