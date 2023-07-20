@@ -47,7 +47,7 @@ const main = async _ => {
         return;
     }
 
-    if (isBlackListedRepo())
+    if (isBlackListedRepo(repoName))
     {
         await markFailure(token, "Repository name is on the blacklist.");
 
