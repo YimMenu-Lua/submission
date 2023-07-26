@@ -3,7 +3,7 @@ description: Submit a request for a YimMenu Lua repository.
 title: "[Submission]: "
 labels: submission
 body:
-- type: textarea
+- type: input
   attributes:
     label: Repository Name
     description: The repository name is how the URL at which your Lua scripts can be found will be shaped. For example YimMenu-Lua/Casino
@@ -20,7 +20,32 @@ body:
 - type: checkboxes
   attributes:
     label: ToS Agreement
-    description: By checking this you agree that the repository given to you will follow the [Github Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service).
+    description: You confirm that the repository given to you will follow the [Github Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service).
     options:
       - label: I agree to the Github ToS
         required: true
+- type: checkboxes
+  attributes:
+    label: External Linking
+    description: You confirm that you will not have any external links on the repo unless it's relevant to the topic at hand.
+    options:
+      - label: I agree not to link externally
+        required: true
+- type: checkboxes
+  attributes:
+    label: No Advertising
+    description: You confirm that you will not be advertising for commercial gain (Discord servers or asking for followers on other platforms). Donations are allowed on the repository through the likes of PayPal, Crypto addresses or funding.yml.
+    options:
+      - label: I agree not to advertise for commercial gain
+        required: true
+- type: checkboxes
+  attributes:
+    label: Paywalling
+    description: You confirm that you will not be limiting features behind a paywall.
+    options:
+      - label: I agree not to paywall features
+        required: true
+- type: markdown
+  attributes:
+    value: |
+      If any of the above agreements is broken we reserve the right to remove your repository and block access to the YimMenu-Lua organisation.
