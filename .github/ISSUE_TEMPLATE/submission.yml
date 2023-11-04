@@ -10,7 +10,7 @@ body:
     placeholder: Heist-Editor
   validations:
     required: true
-- type: textarea
+- type: input
   attributes:
     label: Description
     description: Describe what features your Lua script will offer.
