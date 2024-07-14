@@ -52,7 +52,7 @@ const filter = new Filter();
  * @returns {boolean}
  */
 export const isBlackListedRepo = repoName => {
-    const nameBlackList = [ '.github', '.github-private', context.repo.owner, `${context.repo.owner}.github.io` ];
+    const nameBlackList = [ '.github', '.github-private', context.repo.owner, `${context.repo.owner}.github.io`, 'YimMenu' ];
     for (const blackListed of nameBlackList) {
         core.debug(`Blacklisted: ${blackListed}`);
     }
